@@ -8,3 +8,12 @@ nbproject
 .settings
 composer.lock
 vendor/bin
+
+#########
+# COMPOSER
+#########
+
+vendor/.gitignore
+vendor/*
+vendor/**
+vendor/**/*
