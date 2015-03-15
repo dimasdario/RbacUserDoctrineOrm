@@ -4,18 +4,18 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="RbacUserDoctrineOrm\Entity\Role" table="rbac_role">
+    <entity name="RbacUserDoctrineOrm\Entity\Role" table="rbac_role">
 
         <id name="id" type="integer" column="role_id">
             <generator strategy="AUTO" />
         </id>
 
         <field name="name" type="string" length="32" column="role_name" />
-        <one-to-many field="children" target-entity="Role" mapped-by="parent" />
-        <many-to-one field="parent" target-entity="Role" inversed-by="children">
+        <one-to-many field="children" target-entity="RbacUserDoctrineOrm\Entity\Role" mapped-by="parent" />
+        <many-to-one field="parent" target-entity="RbacUserDoctrineOrm\Entity\Role" inversed-by="children">
             <join-column name="parent_role_id" referenced-column-name="role_id" />
         </many-to-one>
-        <many-to-many field="permissions" target-entity="Permission">
+        <many-to-many field="permissions" target-entity="RbacUserDoctrineOrm\Entity\Permission">
             <join-table name="rbac_role_permission">
                 <join-columns>
                     <join-column name="role_id" referenced-column-name="role_id"/>
@@ -25,6 +25,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-    </mapped-superclass>
+        
+    </entity>
 
 </doctrine-mapping>
