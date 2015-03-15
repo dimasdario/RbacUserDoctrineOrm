@@ -8,6 +8,7 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\ServiceManager\ServiceManager;
 
 class Module
     implements BootstrapListenerInterface,
@@ -26,7 +27,11 @@ class Module
     {
 
         $application    = $e->getApplication();
+        /* @var $serviceManager ServiceManager */
         $serviceManager = $application->getServiceManager();
+        $config = $serviceManager->get('Config');
+        unset($config['doctrine']['orm_default']['drivers']['ZfcUser\Entity']);
+        $serviceManager->set('Config', $config);
     }
 
 
